@@ -1,11 +1,9 @@
 "use strict";
 
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.StepDescription = exports.StepStatus = exports.StepTitle = exports.StepNumber = exports.useStepper = exports.Step = exports.Stepper = void 0;
+exports.useStepper = exports.Stepper = exports.StepTitle = exports.StepStatus = exports.StepNumber = exports.StepDescription = exports.Step = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
@@ -35,83 +33,112 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var animationOpacity = (0, _styledComponents.keyframes)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 1;\n  }\n"])));
-var completedBarAnimation = (0, _styledComponents.keyframes)(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n  from {\n    width: 0;\n  }\n  to {\n    width: 100%;\n  }\n"])));
-var progressBarAnimation = (0, _styledComponents.keyframes)(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n  from {\n    width: 0;\n  }\n  to {\n    width: 50%;\n  }\n"])));
-var completedProgressBarVerticalAnimation = (0, _styledComponents.keyframes)(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n  from {\n    height: 0;\n  }\n  to {\n    height: 100%;\n  }\n"])));
-var progressBarVerticalAnimation = (0, _styledComponents.keyframes)(_templateObject5 || (_templateObject5 = _taggedTemplateLiteral(["\n  from {\n    height: 0;\n  }\n  to {\n    height: 50%;\n  }\n"])));
-var stepAnimationOpacityText = (0, _styledComponents.keyframes)(_templateObject6 || (_templateObject6 = _taggedTemplateLiteral(["\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 1;\n  }\n"])));
-var animateSuccessTip = (0, _styledComponents.keyframes)(_templateObject7 || (_templateObject7 = _taggedTemplateLiteral(["\n  0% {\n    width: 0;\n    left: 0.0625em;\n    top: 1.1875em;\n  }\n  54% {\n    width: 0;\n    left: 0.0625em;\n    top: 1.1875em;\n  }\n  70% {\n    width: 3.125em;\n    left: -0.5em;\n    top: 2.3125em;\n  }\n  84% {\n    width: 1.0625em;\n    left: 1.3125em;\n    top: 3em;\n  }\n  100% {\n    width: 1.5625em;\n    left: 0.875em;\n    top: 2.8125em;\n  }\n"])));
-var animateSuccessLong = (0, _styledComponents.keyframes)(_templateObject8 || (_templateObject8 = _taggedTemplateLiteral(["\n  0% {\n    width: 0;\n    right: 2.875em;\n    top: 3.375em;\n  }\n  65% {\n    width: 0;\n    right: 2.875em;\n    top: 3.375em;\n  }\n  84% {\n    width: 3.4375em;\n    right: 0;\n    top: 2.1875em;\n  }\n  100% {\n    width: 2.9375em;\n    right: 0.5em;\n    top: 2.375em;\n  }\n"])));
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var StepperStyled = _styledComponents.default.div(_templateObject9 || (_templateObject9 = _taggedTemplateLiteral(["\n  width: 100%;\n  height: 100%;\n  font-size: 1rem;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  font-family: \"Montserrat\", sans-serif;\n  ", "\n"])), function (props) {
-  return props.vertical && (0, _styledComponents.css)(_templateObject10 || (_templateObject10 = _taggedTemplateLiteral(["\n      flex-direction: column;\n    "])));
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
+var isObject = function isObject(item) {
+  return item && _typeof(item) === "object" && !Array.isArray(item) && true;
+};
+
+var mergeDeep = function mergeDeep(target, source) {
+  if (isObject(target) && isObject(source)) {
+    for (var key in source) {
+      if (isObject(source[key])) {
+        if (!target[key]) Object.assign(target, _defineProperty({}, key, {}));
+        mergeDeep(target[key], source[key]);
+      } else {
+        Object.assign(target, _defineProperty({}, key, source[key]));
+      }
+    }
+  }
+
+  return target;
+};
+
+var animationOpacity = (0, _styledComponents.keyframes)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    from {\n        opacity: 0;\n    }\n    to {\n        opacity: 1;\n    }\n"])));
+var completedBarAnimation = (0, _styledComponents.keyframes)(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    from {\n        width: 0;\n    }\n    to {\n        width: 100%;\n    }\n"])));
+var progressBarAnimation = (0, _styledComponents.keyframes)(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n    from {\n        width: 0;\n    }\n    to {\n        width: 50%;\n    }\n"])));
+var completedProgressBarVerticalAnimation = (0, _styledComponents.keyframes)(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n    from {\n        height: 0;\n    }\n    to {\n        height: 100%;\n    }\n"])));
+var progressBarVerticalAnimation = (0, _styledComponents.keyframes)(_templateObject5 || (_templateObject5 = _taggedTemplateLiteral(["\n    from {\n        height: 0;\n    }\n    to {\n        height: 50%;\n    }\n"])));
+var stepAnimationOpacityText = (0, _styledComponents.keyframes)(_templateObject6 || (_templateObject6 = _taggedTemplateLiteral(["\n    from {\n        opacity: 0;\n    }\n    to {\n        opacity: 1;\n    }\n"])));
+var animateSuccessTip = (0, _styledComponents.keyframes)(_templateObject7 || (_templateObject7 = _taggedTemplateLiteral(["\n    0% {\n        width: 0;\n        left: 0.0625em;\n        top: 1.1875em;\n    }\n    54% {\n        width: 0;\n        left: 0.0625em;\n        top: 1.1875em;\n    }\n    70% {\n        width: 3.125em;\n        left: -0.5em;\n        top: 2.3125em;\n    }\n    84% {\n        width: 1.0625em;\n        left: 1.3125em;\n        top: 3em;\n    }\n    100% {\n        width: 1.5625em;\n        left: 0.875em;\n        top: 2.8125em;\n    }\n"])));
+var animateSuccessLong = (0, _styledComponents.keyframes)(_templateObject8 || (_templateObject8 = _taggedTemplateLiteral(["\n    0% {\n        width: 0;\n        right: 2.875em;\n        top: 3.375em;\n    }\n    65% {\n        width: 0;\n        right: 2.875em;\n        top: 3.375em;\n    }\n    84% {\n        width: 3.4375em;\n        right: 0;\n        top: 2.1875em;\n    }\n    100% {\n        width: 2.9375em;\n        right: 0.5em;\n        top: 2.375em;\n    }\n"])));
+
+var StepperStyled = _styledComponents.default.div(_templateObject9 || (_templateObject9 = _taggedTemplateLiteral(["\n    width: 100%;\n    height: 100%;\n    font-size: 1em;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    font-family: \"Montserrat\", sans-serif;\n    ", "\n"])), function (props) {
+  return props.vertical && (0, _styledComponents.css)(_templateObject10 || (_templateObject10 = _taggedTemplateLiteral(["\n                flex-direction: column;\n            "])));
 });
 
-var StepStyled = _styledComponents.default.div(_templateObject11 || (_templateObject11 = _taggedTemplateLiteral(["\n  flex-shrink: 0;\n  position: relative;\n  width: 2.5em;\n  height: 2.5em;\n  border-radius: 50%;\n  background: ", ";\n  color: ", ";\n  ", "\n"])), function (props) {
+var StepStyled = _styledComponents.default.div(_templateObject11 || (_templateObject11 = _taggedTemplateLiteral(["\n    flex-shrink: 0;\n    position: relative;\n    width: 2.5em;\n    height: 2.5em;\n    border-radius: 50%;\n    background: ", ";\n    color: ", ";\n    ", "\n"])), function (props) {
   return props.theme.background;
 }, function (props) {
   return props.theme.color;
 }, function (props) {
-  return (props.isStepInProgress || props.isStepCompleted) && (0, _styledComponents.css)(_templateObject12 || (_templateObject12 = _taggedTemplateLiteral(["\n      animation: ", " 1s ease;\n    "])), animationOpacity);
+  return (props.isStepInProgress || props.isStepCompleted) && (0, _styledComponents.css)(_templateObject12 || (_templateObject12 = _taggedTemplateLiteral(["\n                animation: ", " 1s ease;\n            "])), animationOpacity);
 });
 
-var Number = _styledComponents.default.div(_templateObject13 || (_templateObject13 = _taggedTemplateLiteral(["\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  animation: ", " 1s ease;\n"])), stepAnimationOpacityText);
+var Number = _styledComponents.default.div(_templateObject13 || (_templateObject13 = _taggedTemplateLiteral(["\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    transform: translate(-50%, -50%);\n    animation: ", " 1s ease;\n"])), stepAnimationOpacityText);
 
-var AnimationCheckMark = _styledComponents.default.div(_templateObject14 || (_templateObject14 = _taggedTemplateLiteral(["\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  font-size: 0.455em;\n"])));
+var AnimationCheckMark = _styledComponents.default.div(_templateObject14 || (_templateObject14 = _taggedTemplateLiteral(["\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    transform: translate(-50%, -50%);\n    font-size: 0.455em;\n"])));
 
-var CheckMarkStyled = _styledComponents.default.div(_templateObject15 || (_templateObject15 = _taggedTemplateLiteral(["\n  width: 5.5em;\n  height: 5.5em;\n  border-radius: 50%;\n  margin: 0 auto;\n  background: ", ";\n  font-size: 1em;\n"])), function (props) {
-  return props.theme.fillColor;
+var CheckMarkStyled = _styledComponents.default.div(_templateObject15 || (_templateObject15 = _taggedTemplateLiteral(["\n    width: 5.5em;\n    height: 5.5em;\n    border-radius: 50%;\n    margin: 0 auto;\n    background: ", ";\n    font-size: 1em;\n"])), function (props) {
+  return props.theme.background;
 });
 
-var SaIcon = _styledComponents.default.div(_templateObject16 || (_templateObject16 = _taggedTemplateLiteral(["\n  & {\n    width: 5em;\n    height: 5em;\n    border: 0.25em solid #23c275;\n    border-radius: 2.5em;\n    border-radius: 50%;\n    border-color: #23c275;\n    margin: auto;\n    padding: 0;\n    position: relative;\n    box-sizing: content-box;\n    overflow: hidden;\n  }\n  &:before,\n  &:after {\n    content: \"\";\n    border-radius: 2.5em;\n    border-radius: 50%;\n    position: absolute;\n    width: 3.75em;\n    height: 7.5em;\n    background: #23c275;\n    transform: rotate(45deg);\n  }\n  &:before {\n    border-radius: 7.5em 0 0 7.5em;\n    top: -0.4375em;\n    left: -2.0625em;\n    transform: rotate(-45deg);\n    transform-origin: 3.75em 3.75em;\n  }\n  &:after {\n    border-radius: 0 7.5em 7.5em 0;\n    top: -0.6875em;\n    left: 1.875em;\n    transform: rotate(-45deg);\n    transform-origin: 0 3.75em;\n  }\n"])));
+var SaIcon = _styledComponents.default.div(_templateObject16 || (_templateObject16 = _taggedTemplateLiteral(["\n    & {\n        width: 5em;\n        height: 5em;\n        border: 0.25em solid ", ";\n        border-radius: 2.5em;\n        border-radius: 50%;\n        border-color: ", ";\n        margin: auto;\n        padding: 0;\n        position: relative;\n        box-sizing: content-box;\n        overflow: hidden;\n    }\n\n    &:before,\n    &:after {\n        content: \"\";\n        border-radius: 50%;\n        position: absolute;\n        width: 3.75em;\n        height: 7.5em;\n        background: ", ";\n        transform: rotate(45deg);\n    }\n\n    &:before {\n        border-radius: 7.5em 0 0 7.5em;\n        top: -0.4375em;\n        left: -2.0625em;\n        transform: rotate(-45deg);\n        transform-origin: 3.75em 3.75em;\n    }\n\n    &:after {\n        border-radius: 0 7.5em 7.5em 0;\n        top: -0.6875em;\n        left: 1.875em;\n        transform: rotate(-45deg);\n        transform-origin: 0 3.75em;\n    }\n"])), function (props) {
+  return props.theme.background;
+}, function (props) {
+  return props.theme.background;
+}, function (props) {
+  return props.theme.background;
+});
 
-var SaTip = _styledComponents.default.span(_templateObject17 || (_templateObject17 = _taggedTemplateLiteral(["\n  height: 0.3125em;\n  background-color: ", ";\n  display: block;\n  border-radius: 0.125em;\n  position: absolute;\n  z-index: 2;\n  width: 1.5625em;\n  left: 0.875em;\n  top: 2.875em;\n  transform: rotate(45deg);\n  animation: ", " 0.75s;\n"])), function (props) {
-  return props.theme.fillIconColor;
+var SaTip = _styledComponents.default.span(_templateObject17 || (_templateObject17 = _taggedTemplateLiteral(["\n    height: 0.3125em;\n    background-color: ", ";\n    display: block;\n    border-radius: 0.125em;\n    position: absolute;\n    z-index: 2;\n    width: 1.5625em;\n    left: 0.875em;\n    top: 2.875em;\n    transform: rotate(45deg);\n    animation: ", " 0.75s;\n"])), function (props) {
+  return props.theme.color;
 }, animateSuccessTip);
 
-var SaLong = _styledComponents.default.span(_templateObject18 || (_templateObject18 = _taggedTemplateLiteral(["\n  height: 0.3125em;\n  background-color: ", ";\n  display: block;\n  border-radius: 0.125em;\n  position: absolute;\n  z-index: 2;\n  width: 2.9375em;\n  right: 0.5em;\n  top: 2.375em;\n  transform: rotate(-45deg);\n  animation: ", " 0.75s;\n"])), function (props) {
-  return props.theme.fillIconColor;
+var SaLong = _styledComponents.default.span(_templateObject18 || (_templateObject18 = _taggedTemplateLiteral(["\n    height: 0.3125em;\n    background-color: ", ";\n    display: block;\n    border-radius: 0.125em;\n    position: absolute;\n    z-index: 2;\n    width: 2.9375em;\n    right: 0.5em;\n    top: 2.375em;\n    transform: rotate(-45deg);\n    animation: ", " 0.75s;\n"])), function (props) {
+  return props.theme.color;
 }, animateSuccessLong);
 
-var SaPlaceholder = _styledComponents.default.div(_templateObject19 || (_templateObject19 = _taggedTemplateLiteral(["\n  width: 5em;\n  height: 5em;\n  border-radius: 2.5em;\n  border-radius: 50%;\n  box-sizing: content-box;\n  position: absolute;\n  left: -0.25em;\n  top: -0.25em;\n  z-index: 2;\n"])));
+var SaPlaceholder = _styledComponents.default.div(_templateObject19 || (_templateObject19 = _taggedTemplateLiteral(["\n    width: 5em;\n    height: 5em;\n    border-radius: 50%;\n    box-sizing: content-box;\n    position: absolute;\n    left: -0.25em;\n    top: -0.25em;\n    z-index: 2;\n"])));
 
-var SaFix = _styledComponents.default.div(_templateObject20 || (_templateObject20 = _taggedTemplateLiteral(["\n  width: 0.3125em;\n  height: 5.625em;\n  background-color: ", ";\n  position: absolute;\n  left: 1.75em;\n  top: 0.5em;\n  z-index: 1;\n  transform: rotate(-45deg);\n"])), function (props) {
-  return props.theme.fillColor;
+var SaFix = _styledComponents.default.div(_templateObject20 || (_templateObject20 = _taggedTemplateLiteral(["\n    width: 0.3125em;\n    height: 5.625em;\n    background-color: ", ";\n    position: absolute;\n    left: 1.75em;\n    top: 0.5em;\n    z-index: 1;\n    transform: rotate(-45deg);\n"])), function (props) {
+  return props.theme.background;
 });
 
-var Content = _styledComponents.default.div(_templateObject21 || (_templateObject21 = _taggedTemplateLiteral(["\n  position: absolute;\n  top: 100%;\n  left: 0;\n  min-width: 200px;\n  margin-top: 1em;\n  ", "\n  ", "\n    ", "\n"])), function (props) {
-  return props.isLastStep && (0, _styledComponents.css)(_templateObject22 || (_templateObject22 = _taggedTemplateLiteral(["\n      left: auto;\n      right: 0;\n      text-align: right;\n    "])));
+var Content = _styledComponents.default.div(_templateObject21 || (_templateObject21 = _taggedTemplateLiteral(["\n    position: absolute;\n    top: 100%;\n    left: 0;\n    min-width: 200px;\n    margin-top: 1em;\n    ", "\n    ", "\n    ", "\n"])), function (props) {
+  return props.isLastStep && (0, _styledComponents.css)(_templateObject22 || (_templateObject22 = _taggedTemplateLiteral(["\n                left: auto;\n                right: 0;\n                text-align: right;\n            "])));
 }, function (props) {
-  return props.vertical && (0, _styledComponents.css)(_templateObject23 || (_templateObject23 = _taggedTemplateLiteral(["\n      top: 0;\n      left: 100%;\n      margin: 0;\n      margin-left: 1em;\n    "])));
+  return props.vertical && (0, _styledComponents.css)(_templateObject23 || (_templateObject23 = _taggedTemplateLiteral(["\n                top: 0;\n                left: 100%;\n                margin: 0 0 0 1em;\n            "])));
 }, function (props) {
-  return props.vertical && props.isLastStep && (0, _styledComponents.css)(_templateObject24 || (_templateObject24 = _taggedTemplateLiteral(["\n      top: auto;\n      right: 0;\n      bottom: 0;\n      text-align: left;\n    "])));
+  return props.vertical && props.isLastStep && (0, _styledComponents.css)(_templateObject24 || (_templateObject24 = _taggedTemplateLiteral(["\n                top: auto;\n                right: 0;\n                bottom: 0;\n                text-align: left;\n            "])));
 });
 
-var StepNumberStyled = _styledComponents.default.p(_templateObject25 || (_templateObject25 = _taggedTemplateLiteral(["\n  margin: 0;\n  margin-top: 0.75rem;\n  font-size: 0.8em;\n  color: ", ";\n"])), function (props) {
+var StepNumberStyled = _styledComponents.default.p(_templateObject25 || (_templateObject25 = _taggedTemplateLiteral(["\n    margin: 0.75rem 0 0;\n    font-size: 0.8em;\n    color: ", ";\n"])), function (props) {
   return props.theme.color;
 });
 
-var StepTitleStyled = _styledComponents.default.p(_templateObject26 || (_templateObject26 = _taggedTemplateLiteral(["\n  margin: 0;\n  margin-top: 0.75rem;\n  font-weight: bold;\n  color: ", ";\n"])), function (props) {
+var StepTitleStyled = _styledComponents.default.p(_templateObject26 || (_templateObject26 = _taggedTemplateLiteral(["\n    margin: 0.75rem 0 0;\n    font-weight: bold;\n    color: ", ";\n"])), function (props) {
   return props.theme.color;
 });
 
-var StepStatusStyled = _styledComponents.default.p(_templateObject27 || (_templateObject27 = _taggedTemplateLiteral(["\n  display: inline-block;\n  margin: 0;\n  margin-top: 0.75rem;\n  padding: 0.4rem 0.75rem;\n  border-radius: 2.375rem;\n  font-size: 0.8em;\n  background: ", ";\n  color: ", ";\n"])), function (props) {
+var StepStatusStyled = _styledComponents.default.p(_templateObject27 || (_templateObject27 = _taggedTemplateLiteral(["\n    display: inline-block;\n    margin: 0.75rem 0 0;\n    padding: 0.4rem 0.75rem;\n    border-radius: 2.375rem;\n    font-size: 0.8em;\n    background: ", ";\n    color: ", ";\n"])), function (props) {
   return props.theme.background;
 }, function (props) {
   return props.theme.color;
 });
 
-var StepDescriptionStyled = _styledComponents.default.p(_templateObject28 || (_templateObject28 = _taggedTemplateLiteral(["\n  margin: 0;\n  margin-top: 0.75rem;\n  font-size: 0.9em;\n  color: ", ";\n"])), function (props) {
+var StepDescriptionStyled = _styledComponents.default.p(_templateObject28 || (_templateObject28 = _taggedTemplateLiteral(["\n    margin: 0.75rem 0 0;\n    font-size: 0.9em;\n    color: ", ";\n"])), function (props) {
   return props.theme.color;
 });
 
-var ProgressBar = _styledComponents.default.div(_templateObject29 || (_templateObject29 = _taggedTemplateLiteral(["\n  & {\n    position: relative;\n    width: 100%;\n    height: 0.3em;\n    border-radius: 2.375rem;\n    margin: 0 1em;\n    background: ", ";\n    ", "\n  }\n  ", "\n  }\n  ", "\n  ", "\n"])), function (props) {
+var ProgressBar = _styledComponents.default.div(_templateObject29 || (_templateObject29 = _taggedTemplateLiteral(["\n    & {\n        position: relative;\n        width: 100%;\n        height: 0.3em;\n        border-radius: 2.375rem;\n        margin: 0 1em;\n        background: ", ";\n        ", "\n    }\n\n    ", "\n}\n\n", "\n", "\n"])), function (props) {
   return props.theme.background;
 }, function (props) {
-  return props.vertical && (0, _styledComponents.css)(_templateObject30 || (_templateObject30 = _taggedTemplateLiteral(["\n        width: 0.3em;\n        height: 100%;\n        margin: 1em 0;\n      "])));
+  return props.vertical && (0, _styledComponents.css)(_templateObject30 || (_templateObject30 = _taggedTemplateLiteral(["\n                    width: 0.3em;\n                    height: 100%;\n                    margin: 1em 0;\n                "])));
 }, function (props) {
-  return (props.isStepInProgress || props.isStepCompleted) && (0, _styledComponents.css)(_templateObject31 || (_templateObject31 = _taggedTemplateLiteral(["\n      &:after {\n        content: \"\";\n        display: block;\n        position: absolute;\n        top: 0;\n        left: 0;\n        width: ", ";\n        height: 100%;\n        border-radius: 2.375rem;\n        background: ", ";\n        animation: ", "\n          1s ease;\n      }\n    "])), function (props) {
+  return (props.isStepInProgress || props.isStepCompleted) && (0, _styledComponents.css)(_templateObject31 || (_templateObject31 = _taggedTemplateLiteral(["\n                &:after {\n                    content: \"\";\n                    display: block;\n                    position: absolute;\n                    top: 0;\n                    left: 0;\n                    width: ", ";\n                    height: 100%;\n                    border-radius: 2.375rem;\n                    background: ", ";\n                    animation: ", " 1s ease;\n                }\n            "])), function (props) {
     return props.isStepInProgress ? "50%" : "100%";
   }, function (props) {
     return props.theme.fill;
@@ -119,9 +146,9 @@ var ProgressBar = _styledComponents.default.div(_templateObject29 || (_templateO
     return props.isStepInProgress ? progressBarAnimation : completedBarAnimation;
   });
 }, function (props) {
-  return props.isStepInProgress && props.vertical && (0, _styledComponents.css)(_templateObject32 || (_templateObject32 = _taggedTemplateLiteral(["\n      &:after {\n        width: 100%;\n        height: 50%;\n        animation: ", " 1s ease;\n      }\n    "])), progressBarVerticalAnimation);
+  return props.isStepInProgress && props.vertical && (0, _styledComponents.css)(_templateObject32 || (_templateObject32 = _taggedTemplateLiteral(["\n            &:after {\n                width: 100%;\n                height: 50%;\n                animation: ", " 1s ease;\n            }\n        "])), progressBarVerticalAnimation);
 }, function (props) {
-  return props.isStepCompleted && props.vertical && (0, _styledComponents.css)(_templateObject33 || (_templateObject33 = _taggedTemplateLiteral(["\n      &:after {\n        animation: ", " 1s ease;\n      }\n    "])), completedProgressBarVerticalAnimation);
+  return props.isStepCompleted && props.vertical && (0, _styledComponents.css)(_templateObject33 || (_templateObject33 = _taggedTemplateLiteral(["\n            &:after {\n                animation: ", " 1s ease;\n            }\n        "])), completedProgressBarVerticalAnimation);
 });
 
 var useStepper = function useStepper(defaultValue, numberOfSteps) {
@@ -131,7 +158,7 @@ var useStepper = function useStepper(defaultValue, numberOfSteps) {
       setStep = _useState2[1];
 
   var goToStep = function goToStep(stepNumber) {
-    if (stepNumber >= 0 && stepNumber <= numberOfSteps) setStep(stepNumber);
+    if (step !== 0 && step < numberOfSteps) setStep(stepNumber);
   };
 
   var incrementStep = function incrementStep() {
@@ -259,25 +286,26 @@ var Step = function Step(props) {
       isStepPending = props.isStepPending,
       vertical = props.vertical,
       numbered = props.numbered,
-      disableAnimation = props.disableAnimation,
       customContent = props.customContent,
-      theme = props.theme;
+      theme = props.theme,
+      onClick = props.onClick;
   var status = isStepInProgress ? "progress" : isStepCompleted ? "completed" : "pending";
   var CustomContent = customContent;
   return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(StepStyled, {
+    onClick: onClick,
     isStepInProgress: isStepInProgress,
     isStepCompleted: isStepCompleted,
     theme: theme.step[status],
     className: "step ".concat(isStepInProgress ? "progress" : "", "\n      ").concat(isStepCompleted ? "completed" : "", " ").concat(isStepPending ? "pending" : "")
-  }, !customContent ? /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, (!isStepCompleted || disableAnimation) && numbered && /*#__PURE__*/_react.default.createElement(Number, {
+  }, !customContent ? /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, !isStepCompleted && numbered && /*#__PURE__*/_react.default.createElement(Number, {
     className: "number"
-  }, currentStep), isStepCompleted && !disableAnimation && /*#__PURE__*/_react.default.createElement(CheckMark, {
-    theme: theme.checkMark
-  })) : /*#__PURE__*/_react.default.createElement(CustomContent, null), /*#__PURE__*/_react.default.createElement(Content, {
+  }, currentStep), isStepCompleted && /*#__PURE__*/_react.default.createElement(CheckMark, {
+    theme: theme.step.completed
+  })) : /*#__PURE__*/_react.default.createElement(CustomContent, null), props.children && /*#__PURE__*/_react.default.createElement(Content, {
     isLastStep: isLastStep,
     vertical: vertical,
     className: "content ".concat(isLastStep ? "last" : "")
-  }, props.children && (props.children.constructor === Array ? props.children.map(function (children, i) {
+  }, props.children.constructor === Array ? props.children.map(function (children, i) {
     return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, {
       key: i
     }, /*#__PURE__*/(0, _react.cloneElement)(children, {
@@ -293,7 +321,7 @@ var Step = function Step(props) {
     isStepCompleted: isStepCompleted,
     isStepPending: isStepPending,
     theme: theme.content[status]
-  })))), !isLastStep && /*#__PURE__*/_react.default.createElement(ProgressBar, {
+  }))), !isLastStep && /*#__PURE__*/_react.default.createElement(ProgressBar, {
     isStepInProgress: isStepInProgress,
     isStepCompleted: isStepCompleted,
     vertical: vertical,
@@ -314,12 +342,9 @@ var Stepper = function Stepper(props) {
       _props$numbered = props.numbered,
       numbered = _props$numbered === void 0 ? true : _props$numbered,
       _props$theme = props.theme,
-      theme = _props$theme === void 0 ? {
+      theme = _props$theme === void 0 ? {} : _props$theme;
+  var defaultTheme = {
     light: {
-      checkMark: {
-        fillColor: "#23c275",
-        fillIconColor: "#ffffff"
-      },
       step: {
         pending: {
           background: "#ededed",
@@ -396,10 +421,6 @@ var Stepper = function Stepper(props) {
       }
     },
     dark: {
-      checkMark: {
-        fillColor: "#23c275",
-        fillIconColor: "#ffffff"
-      },
       step: {
         pending: {
           background: "#1a1a1a",
@@ -475,7 +496,7 @@ var Stepper = function Stepper(props) {
         }
       }
     }
-  } : _props$theme;
+  };
   return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(_fonts.default, null), /*#__PURE__*/_react.default.createElement(StepperStyled, {
     vertical: vertical,
     className: "stepper ".concat(vertical ? "vertical" : "", " ").concat(dark ? "dark" : "")
@@ -493,7 +514,7 @@ var Stepper = function Stepper(props) {
       isStepPending: !isStepInProgress && !isStepCompleted,
       vertical: vertical,
       numbered: numbered,
-      theme: theme[dark ? "dark" : "light"]
+      theme: mergeDeep(defaultTheme, theme)[dark ? "dark" : "light"]
     }));
   })));
 };
