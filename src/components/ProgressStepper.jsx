@@ -1,4 +1,4 @@
-import React, {cloneElement, useState} from "react";
+import React, {cloneElement, createContext, useContext, useState} from "react";
 import styled, {keyframes, css} from "styled-components";
 
 import GlobalFonts from "../assets/fonts/fonts";
@@ -391,7 +391,7 @@ ${(props) =>
         `}
 `;
 
-const useStepper = (defaultValue, numberOfSteps) => {
+const assignStepper = (defaultValue, numberOfSteps) => {
     const [step, setStep] = useState(defaultValue || 0);
 
     const goToStep = (stepNumber) => {
@@ -412,6 +412,28 @@ const useStepper = (defaultValue, numberOfSteps) => {
 
     return {step, goToStep, incrementStep, decrementStep};
 };
+
+const StepperContext = createContext(undefined);
+
+const StepperProvider = ({children}) => {
+    const value = assignStepper();
+
+    return (
+        <StepperContext.Provider value={value}>
+            {children}
+        </StepperContext.Provider>
+    );
+}
+
+const useStepper = () => {
+    const context = useContext(StepperContext);
+
+    if (context === undefined) {
+        throw new Error('useStepper can only be used inside StepperProvider');
+    }
+
+    return context;
+}
 
 const StepNumber = (props) => {
     const {text, currentStep, theme} = props;
@@ -732,7 +754,9 @@ const Stepper = (props) => {
 export {
     Stepper,
     Step,
+    assignStepper,
     useStepper,
+    StepperProvider,
     StepNumber,
     StepTitle,
     StepStatus,
