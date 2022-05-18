@@ -1,7 +1,7 @@
 export {
   Stepper,
   Step,
-  assignStepper,
+  useStepperState,
   StepNumber,
   StepTitle,
   StepStatus,

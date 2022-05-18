@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.useStepper = exports.Stepper = exports.StepTitle = exports.StepStatus = exports.StepNumber = exports.StepDescription = exports.Step = void 0;
+exports.useStepper = exports.assignStepper = exports.StepperProvider = exports.Stepper = exports.StepTitle = exports.StepStatus = exports.StepNumber = exports.StepDescription = exports.Step = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
@@ -69,7 +69,7 @@ var StepperStyled = _styledComponents.default.div(_templateObject9 || (_template
   return props.vertical && (0, _styledComponents.css)(_templateObject10 || (_templateObject10 = _taggedTemplateLiteral(["\n                flex-direction: column;\n            "])));
 });
 
-var StepStyled = _styledComponents.default.div(_templateObject11 || (_templateObject11 = _taggedTemplateLiteral(["\n    flex-shrink: 0;\n    position: relative;\n    width: 2.5em;\n    height: 2.5em;\n    border-radius: 50%;\n    background: ", ";\n    color: ", ";\n    ", "\n"])), function (props) {
+var StepStyled = _styledComponents.default.div(_templateObject11 || (_templateObject11 = _taggedTemplateLiteral(["\n    flex-shrink: 0;\n    position: relative;\n    width: 2.5em;\n    height: 2.5em;\n    border-radius: 50%;\n    background: ", ";\n    color: ", ";\n    cursor: pointer;\n    ", "\n"])), function (props) {
   return props.theme.background;
 }, function (props) {
   return props.theme.color;
@@ -85,7 +85,7 @@ var CheckMarkStyled = _styledComponents.default.div(_templateObject15 || (_templ
   return props.theme.background;
 });
 
-var SaIcon = _styledComponents.default.div(_templateObject16 || (_templateObject16 = _taggedTemplateLiteral(["\n    & {\n        width: 5em;\n        height: 5em;\n        border: 0.25em solid ", ";\n        border-radius: 2.5em;\n        border-radius: 50%;\n        border-color: ", ";\n        margin: auto;\n        padding: 0;\n        position: relative;\n        box-sizing: content-box;\n        overflow: hidden;\n    }\n\n    &:before,\n    &:after {\n        content: \"\";\n        border-radius: 50%;\n        position: absolute;\n        width: 3.75em;\n        height: 7.5em;\n        background: ", ";\n        transform: rotate(45deg);\n    }\n\n    &:before {\n        border-radius: 7.5em 0 0 7.5em;\n        top: -0.4375em;\n        left: -2.0625em;\n        transform: rotate(-45deg);\n        transform-origin: 3.75em 3.75em;\n    }\n\n    &:after {\n        border-radius: 0 7.5em 7.5em 0;\n        top: -0.6875em;\n        left: 1.875em;\n        transform: rotate(-45deg);\n        transform-origin: 0 3.75em;\n    }\n"])), function (props) {
+var SaIcon = _styledComponents.default.div(_templateObject16 || (_templateObject16 = _taggedTemplateLiteral(["\n    & {\n        width: 5em;\n        height: 5em;\n        border: 0.25em solid ", ";\n        border-radius: 50%;\n        border-color: ", ";\n        margin: auto;\n        padding: 0;\n        position: relative;\n        box-sizing: content-box;\n        overflow: hidden;\n    }\n\n    &:before,\n    &:after {\n        content: \"\";\n        border-radius: 50%;\n        position: absolute;\n        width: 3.75em;\n        height: 7.5em;\n        background: ", ";\n        transform: rotate(45deg);\n    }\n\n    &:before {\n        border-radius: 7.5em 0 0 7.5em;\n        top: -0.4375em;\n        left: -2.0625em;\n        transform: rotate(-45deg);\n        transform-origin: 3.75em 3.75em;\n    }\n\n    &:after {\n        border-radius: 0 7.5em 7.5em 0;\n        top: -0.6875em;\n        left: 1.875em;\n        transform: rotate(-45deg);\n        transform-origin: 0 3.75em;\n    }\n"])), function (props) {
   return props.theme.background;
 }, function (props) {
   return props.theme.background;
@@ -151,7 +151,7 @@ var ProgressBar = _styledComponents.default.div(_templateObject29 || (_templateO
   return props.isStepCompleted && props.vertical && (0, _styledComponents.css)(_templateObject33 || (_templateObject33 = _taggedTemplateLiteral(["\n            &:after {\n                animation: ", " 1s ease;\n            }\n        "])), completedProgressBarVerticalAnimation);
 });
 
-var useStepper = function useStepper(defaultValue, numberOfSteps) {
+var assignStepper = function assignStepper(defaultValue, numberOfSteps) {
   var _useState = (0, _react.useState)(defaultValue || 0),
       _useState2 = _slicedToArray(_useState, 2),
       step = _useState2[0],
@@ -183,6 +183,29 @@ var useStepper = function useStepper(defaultValue, numberOfSteps) {
     incrementStep: incrementStep,
     decrementStep: decrementStep
   };
+};
+
+exports.assignStepper = assignStepper;
+var StepperContext = /*#__PURE__*/(0, _react.createContext)(undefined);
+
+var StepperProvider = function StepperProvider(_ref) {
+  var children = _ref.children;
+  var value = assignStepper();
+  return /*#__PURE__*/_react.default.createElement(StepperContext.Provider, {
+    value: value
+  }, children);
+};
+
+exports.StepperProvider = StepperProvider;
+
+var useStepper = function useStepper() {
+  var context = (0, _react.useContext)(StepperContext);
+
+  if (context === undefined) {
+    throw new Error('useStepper can only be used inside StepperProvider');
+  }
+
+  return context;
 };
 
 exports.useStepper = useStepper;

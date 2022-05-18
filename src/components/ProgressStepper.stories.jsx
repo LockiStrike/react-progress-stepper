@@ -3,7 +3,7 @@ import React from "react";
 import {
   Stepper,
   Step,
-  assignStepper,
+  useStepperState,
   StepNumber,
   StepTitle,
   StepStatus,
@@ -17,7 +17,7 @@ export default {
 const TemplateNoContent = (props) => {
   const { numberOfSteps } = props;
 
-  const { step, incrementStep, decrementStep } = assignStepper(0, numberOfSteps);
+  const { step, incrementStep, decrementStep } = useStepperState(0, numberOfSteps);
 
   const buttonStyle = (type) => ({
     position: "fixed",
@@ -73,7 +73,7 @@ const TemplateNoContent = (props) => {
 const TemplateContent = (props) => {
   const { numberOfSteps } = props;
 
-  const { step, incrementStep, decrementStep } = assignStepper(0, numberOfSteps);
+  const { step, incrementStep, decrementStep } = useStepperState(0, numberOfSteps);
 
   const buttonStyle = (type) => ({
     position: "fixed",

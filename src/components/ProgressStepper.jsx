@@ -391,7 +391,7 @@ ${(props) =>
         `}
 `;
 
-const assignStepper = (defaultValue, numberOfSteps) => {
+const useStepperState = (defaultValue, numberOfSteps) => {
     const [step, setStep] = useState(defaultValue || 0);
 
     const goToStep = (stepNumber) => {
@@ -416,7 +416,7 @@ const assignStepper = (defaultValue, numberOfSteps) => {
 const StepperContext = createContext(undefined);
 
 const StepperProvider = ({children}) => {
-    const value = assignStepper();
+    const value = useStepperState();
 
     return (
         <StepperContext.Provider value={value}>
@@ -754,7 +754,7 @@ const Stepper = (props) => {
 export {
     Stepper,
     Step,
-    assignStepper,
+    useStepperState,
     useStepper,
     StepperProvider,
     StepNumber,

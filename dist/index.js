@@ -39,10 +39,10 @@ Object.defineProperty(exports, "Stepper", {
     return _ProgressStepper.Stepper;
   }
 });
-Object.defineProperty(exports, "useStepper", {
+Object.defineProperty(exports, "assignStepper", {
   enumerable: true,
   get: function get() {
-    return _ProgressStepper.useStepper;
+    return _ProgressStepper.assignStepper;
   }
 });
 
