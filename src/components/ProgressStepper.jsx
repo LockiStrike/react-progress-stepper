@@ -149,15 +149,12 @@ const StepStyled = styled.div`
     border-radius: 50%;
     background: ${(props) => props.theme.background};
     color: ${(props) => props.theme.color};
+    cursor: pointer;
     ${(props) =>
             (props.isStepInProgress || props.isStepCompleted) &&
             css`
                 animation: ${animationOpacity} 1s ease;
             `}
-    
-    &:hover {
-        cursor: pointer;
-    }
 `;
 
 const Number = styled.div`
