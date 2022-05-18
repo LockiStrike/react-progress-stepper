@@ -157,12 +157,18 @@ var useStepperState = function useStepperState(defaultValue, numberOfSteps) {
       step = _useState2[0],
       setStep = _useState2[1];
 
+  var _useState3 = (0, _react.useState)(false),
+      _useState4 = _slicedToArray(_useState3, 2),
+      canGoNext = _useState4[0],
+      setCanGoNext = _useState4[1];
+
   var goToStep = function goToStep(stepNumber) {
-    if (step !== 0 && step < numberOfSteps) setStep(stepNumber);
+    var isGoForward = stepNumber > step;
+    if (step !== 0 && step < numberOfSteps && isGoForward && canGoNext) setStep(stepNumber);
   };
 
   var incrementStep = function incrementStep() {
-    if (step < numberOfSteps) {
+    if (step < numberOfSteps && canGoNext) {
       setStep(function (prevState) {
         return prevState + 1;
       });
@@ -181,7 +187,9 @@ var useStepperState = function useStepperState(defaultValue, numberOfSteps) {
     step: step,
     goToStep: goToStep,
     incrementStep: incrementStep,
-    decrementStep: decrementStep
+    decrementStep: decrementStep,
+    canGoNext: canGoNext,
+    setCanGoNext: setCanGoNext
   };
 };
 
