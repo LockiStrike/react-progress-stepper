@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.useStepper = exports.assignStepper = exports.StepperProvider = exports.Stepper = exports.StepTitle = exports.StepStatus = exports.StepNumber = exports.StepDescription = exports.Step = void 0;
+exports.useStepperState = exports.useStepper = exports.StepperProvider = exports.Stepper = exports.StepTitle = exports.StepStatus = exports.StepNumber = exports.StepDescription = exports.Step = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
@@ -151,7 +151,7 @@ var ProgressBar = _styledComponents.default.div(_templateObject29 || (_templateO
   return props.isStepCompleted && props.vertical && (0, _styledComponents.css)(_templateObject33 || (_templateObject33 = _taggedTemplateLiteral(["\n            &:after {\n                animation: ", " 1s ease;\n            }\n        "])), completedProgressBarVerticalAnimation);
 });
 
-var assignStepper = function assignStepper(defaultValue, numberOfSteps) {
+var useStepperState = function useStepperState(defaultValue, numberOfSteps) {
   var _useState = (0, _react.useState)(defaultValue || 0),
       _useState2 = _slicedToArray(_useState, 2),
       step = _useState2[0],
@@ -185,12 +185,14 @@ var assignStepper = function assignStepper(defaultValue, numberOfSteps) {
   };
 };
 
-exports.assignStepper = assignStepper;
+exports.useStepperState = useStepperState;
 var StepperContext = /*#__PURE__*/(0, _react.createContext)(undefined);
 
 var StepperProvider = function StepperProvider(_ref) {
-  var children = _ref.children;
-  var value = assignStepper();
+  var children = _ref.children,
+      defaultValue = _ref.defaultValue,
+      numberOfSteps = _ref.numberOfSteps;
+  var value = useStepperState(defaultValue, numberOfSteps);
   return /*#__PURE__*/_react.default.createElement(StepperContext.Provider, {
     value: value
   }, children);
