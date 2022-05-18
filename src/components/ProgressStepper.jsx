@@ -393,7 +393,7 @@ ${(props) =>
 
 const useStepperState = (defaultValue, numberOfSteps) => {
     const [step, setStep] = useState(defaultValue || 0);
-    const [canGoNext, setCanGoNext] = useState(false);
+    const [canGoNext, setCanGoNext] = useState(true);
 
     const goToStep = (stepNumber) => {
         const isGoForward = stepNumber > step;

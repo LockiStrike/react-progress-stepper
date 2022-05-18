@@ -157,7 +157,7 @@ var useStepperState = function useStepperState(defaultValue, numberOfSteps) {
       step = _useState2[0],
       setStep = _useState2[1];
 
-  var _useState3 = (0, _react.useState)(false),
+  var _useState3 = (0, _react.useState)(true),
       _useState4 = _slicedToArray(_useState3, 2),
       canGoNext = _useState4[0],
       setCanGoNext = _useState4[1];
