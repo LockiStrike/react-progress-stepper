@@ -163,12 +163,11 @@ var useStepperState = function useStepperState(defaultValue, numberOfSteps) {
       setCanGoNext = _useState4[1];
 
   var goToStep = function goToStep(stepNumber) {
-    var isGoForward = stepNumber > step;
-    if (step !== 0 && step < numberOfSteps && isGoForward && canGoNext) setStep(stepNumber);
+    if (step !== 0 && step < numberOfSteps) setStep(stepNumber);
   };
 
   var incrementStep = function incrementStep() {
-    if (step < numberOfSteps && canGoNext) {
+    if (step < numberOfSteps) {
       setStep(function (prevState) {
         return prevState + 1;
       });

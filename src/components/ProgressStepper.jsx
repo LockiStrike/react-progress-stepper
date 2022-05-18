@@ -396,12 +396,11 @@ const useStepperState = (defaultValue, numberOfSteps) => {
     const [canGoNext, setCanGoNext] = useState(true);
 
     const goToStep = (stepNumber) => {
-        const isGoForward = stepNumber > step;
-        if (step !== 0 && step < numberOfSteps && (isGoForward && canGoNext)) setStep(stepNumber);
+        if (step !== 0 && step < numberOfSteps) setStep(stepNumber);
     };
 
     const incrementStep = () => {
-        if (step < numberOfSteps && canGoNext) {
+        if (step < numberOfSteps) {
             setStep((prevState) => prevState + 1);
         }
     };
