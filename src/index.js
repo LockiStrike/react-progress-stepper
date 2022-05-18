@@ -6,4 +6,6 @@ export {
   StepTitle,
   StepStatus,
   StepDescription,
+  useStepper,
+  StepperProvider,
 } from "./components/ProgressStepper";
