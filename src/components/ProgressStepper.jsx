@@ -154,6 +154,10 @@ const StepStyled = styled.div`
             css`
                 animation: ${animationOpacity} 1s ease;
             `}
+    
+    &:hover {
+        cursor: pointer;
+    }
 `;
 
 const Number = styled.div`
