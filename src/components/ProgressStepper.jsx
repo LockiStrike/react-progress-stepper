@@ -415,8 +415,8 @@ const useStepperState = (defaultValue, numberOfSteps) => {
 
 const StepperContext = createContext(undefined);
 
-const StepperProvider = ({children}) => {
-    const value = useStepperState();
+const StepperProvider = ({children, defaultValue, numberOfSteps}) => {
+    const value = useStepperState(defaultValue, numberOfSteps);
 
     return (
         <StepperContext.Provider value={value}>
